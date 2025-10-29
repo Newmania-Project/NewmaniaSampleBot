@@ -45,7 +45,7 @@ typedef struct {
 shoulderButton Shoulder;
 shoulderButton lastShoulder;
 
-#define joyThres 5
+#define joyThres 0
 void getRemoteState(PS2X &remote) {
     remote.read_gamepad();
     leftJoy.pressed = remote.Button(PSB_L3);
@@ -89,9 +89,9 @@ int m4speed = 0;
 #define verticalVelocity rightJoy.Y
 #define horizontalVelocity rightJoy.X
 #define angularVelocity leftJoy.X
-#define vRate 1.5
-#define hRate 1.0
-#define angularRate 1.0
+#define vRate 2.0
+#define hRate 2.0
+#define angularRate 2.0
 #define vLimit 70
 #define hLimit 70
 #define aLimit 60
