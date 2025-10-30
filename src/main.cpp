@@ -20,8 +20,6 @@ void setup() {
 #define RELEASE_THRESHOLD 50
 #define PICKUP_THRESHOLD 60
 #define DROP_THRESHOLD 25
-bool holdState = false;
-bool pickupState = true;
 #define ang0 0
 #define ang1 130
 #define ang2 150
@@ -29,25 +27,29 @@ uint8_t servo3angle = 0;
 bool servoDebug = false;
 void loop() {
     getRemoteState(remote);
-    if (!servoDebug) {
-        if (holdState) {
-            servo1.write(HOLD_THRESHOLD);
-        } else {
-            servo1.write(RELEASE_THRESHOLD);
-        }
-    } else {
+    if (servoDebug) {
         servo1.write(0); // Debug position
     }
-    if (pressedButton(Shoulder.R1, lastShoulder.R1)) {
-        holdState = !holdState;
-    }
-    if (pickupState) {
+    if (pressedButton(Shoulder.L1, lastShoulder.L1)) {
         servo4.write(PICKUP_THRESHOLD);
-    } else {
+    }
+    if (pressedButton(Shoulder.L2, lastShoulder.L2)) {
         servo4.write(DROP_THRESHOLD);
     }
+    if (pressedButton(Shoulder.R1, lastShoulder.R1)) {
+        servo1.write(RELEASE_THRESHOLD);
+        servo4.write(DROP_THRESHOLD);
+        delay(200);
+        servo1.write(HOLD_THRESHOLD);
+        delay(200);
+        servo4.write(PICKUP_THRESHOLD);
+    }
     if (pressedButton(Shoulder.R2, lastShoulder.R2)) {
-        pickupState = !pickupState;
+        servo4.write(DROP_THRESHOLD);
+        delay(200);
+        servo1.write(RELEASE_THRESHOLD);
+        delay(200);
+        servo4.write(PICKUP_THRESHOLD);
     }
     if (pressedButton(DPad.right, lastDPad.right)) {
     servo3angle = ang0;
@@ -72,5 +74,5 @@ void loop() {
     lastDPad = DPad;
     lastGeoPad = GeoPad;
     lastShoulder = Shoulder;
-    delay(10);
+    delay(1);
 }
