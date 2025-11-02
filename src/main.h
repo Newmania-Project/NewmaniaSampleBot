@@ -107,10 +107,10 @@ void calculateMotorSpeeds() {
     if (H < -hLimit) H = -hLimit;
     if (A < -aLimit) A = -aLimit;
 
-    m1speed = V - H - A; // Front Right
-    m2speed = V + H - A; // Back Right
-    m3speed = V - H + A; // Back Left
-    m4speed = V + H + A; // Front Left
+    m1speed = V - H + A; // Back Left
+    m2speed = V + H + A; // Front Left
+    m3speed = V - H - A; // Front Right
+    m4speed = V + H - A; // Back Right
 
     // Normalize speeds to be within -100 to 100
     int maxSpeed = max(max(abs(m1speed), abs(m2speed)), max(abs(m3speed), abs(m4speed)));

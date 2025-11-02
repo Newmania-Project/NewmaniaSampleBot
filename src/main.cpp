@@ -1,5 +1,30 @@
 #include <main.h>
 
+// #define BOT1
+#define BOT2
+
+#ifdef BOT1
+// Bot I
+#define HOLD_THRESHOLD 155
+#define RELEASE_THRESHOLD 50
+#define PICKUP_THRESHOLD 60
+#define DROP_THRESHOLD 30
+#define ang0 0
+#define ang1 130
+#define ang2 150
+#endif
+
+#ifdef BOT2
+// Bot II
+#define HOLD_THRESHOLD 155
+#define RELEASE_THRESHOLD 50
+#define PICKUP_THRESHOLD 50
+#define DROP_THRESHOLD 20
+#define ang0 10
+#define ang1 130
+#define ang2 160
+#endif
+
 PS2X remote;
 void setup() {
     Serial.begin(921600);
@@ -12,24 +37,15 @@ void setup() {
         ledcWrite(7, 0); // Turn off LED after successful connection
         ledcDetachPin(LED);
     }
-    Motor1.Reverse();
-    Motor2.Reverse();
+    Motor3.Reverse();
+    Motor4.Reverse();
+    servo1.write(RELEASE_THRESHOLD);
+    servo4.write(PICKUP_THRESHOLD);
 }
 
-#define HOLD_THRESHOLD 155
-#define RELEASE_THRESHOLD 50
-#define PICKUP_THRESHOLD 60
-#define DROP_THRESHOLD 25
-#define ang0 0
-#define ang1 130
-#define ang2 150
 uint8_t servo3angle = 0;
-bool servoDebug = false;
 void loop() {
     getRemoteState(remote);
-    if (servoDebug) {
-        servo1.write(0); // Debug position
-    }
     if (pressedButton(Shoulder.L1, lastShoulder.L1)) {
         servo4.write(PICKUP_THRESHOLD);
     }
@@ -61,7 +77,7 @@ void loop() {
         servo3angle = ang2;
     }
     if (pressedButton(GeoPad.cross, lastGeoPad.cross)) {
-        servoDebug = !servoDebug;   
+        servo1.write(0);
     }
     servo3.write(servo3angle);
     calculateMotorSpeeds();
