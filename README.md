@@ -7,6 +7,7 @@
 
 ## Bước 2: Đưa mạch vào chế độ nạp code
 ![Hình ảnh nút trên mạch](img/boot_rst.png)
+
     -   Giữ cả 2 nút BOOT và RST
     -   Thả nút RST trước
     -   Sau đó thả nút BOOT
