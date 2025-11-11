@@ -6,7 +6,7 @@
 
 
 ## Bước 2: Đưa mạch vào chế độ nạp code
-![Hình ảnh nút trên mạch](img/boot_rst.png)
+![Hình ảnh nút trên mạch](https://newmaniafiles.netlify.app/boot_rst.png)
 
 -   Giữ cả 2 nút BOOT và RST
 -   Thả nút RST trước
@@ -14,3 +14,4 @@
 
 ## Bước 3: Nạp code
 -   Làm theo video hướng dẫn
+<!-- <video controls src="https://newmaniafiles.netlify.app/tutorial.mp4" type="video/mp4"></video> -->
