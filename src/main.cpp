@@ -1,29 +1,15 @@
 #include <main.h>
 
-// #define BOT1
-#define BOT2
-
-#ifdef BOT1
-// Bot I
-#define HOLD_THRESHOLD 155
-#define RELEASE_THRESHOLD 50
-#define PICKUP_THRESHOLD 60
-#define DROP_THRESHOLD 30
-#define ang0 0
-#define ang1 130
-#define ang2 150
-#endif
-
-#ifdef BOT2
-// Bot II
 #define HOLD_THRESHOLD 155
 #define RELEASE_THRESHOLD 50
 #define PICKUP_THRESHOLD 50
-#define DROP_THRESHOLD 20
+#define DROP_THRESHOLD 35
+
+// góc quay servo cắm chân 13
 #define ang0 10
-#define ang1 130
-#define ang2 160
-#endif
+#define ang1 90
+#define ang2 120
+#define ang3 170
 
 PS2X remote;
 void setup() {
@@ -37,8 +23,8 @@ void setup() {
         ledcWrite(7, 0); // Turn off LED after successful connection
         ledcDetachPin(LED);
     }
-    Motor3.Reverse();
-    Motor4.Reverse();
+    Motor1.Reverse();
+    Motor2.Reverse();
     servo1.write(RELEASE_THRESHOLD);
     servo4.write(PICKUP_THRESHOLD);
 }
@@ -53,28 +39,22 @@ void loop() {
         servo4.write(DROP_THRESHOLD);
     }
     if (pressedButton(Shoulder.R1, lastShoulder.R1)) {
-        servo1.write(RELEASE_THRESHOLD);
-        servo4.write(DROP_THRESHOLD);
-        delay(200);
         servo1.write(HOLD_THRESHOLD);
-        delay(200);
-        servo4.write(PICKUP_THRESHOLD);
     }
     if (pressedButton(Shoulder.R2, lastShoulder.R2)) {
-        servo4.write(DROP_THRESHOLD);
-        delay(200);
         servo1.write(RELEASE_THRESHOLD);
-        delay(200);
-        servo4.write(PICKUP_THRESHOLD);
     }
     if (pressedButton(DPad.right, lastDPad.right)) {
-    servo3angle = ang0;
+        servo3angle = ang0;
     }
     if (pressedButton(DPad.up, lastDPad.up)) {
         servo3angle = ang1;
     }
     if (pressedButton(DPad.left, lastDPad.left)) {
         servo3angle = ang2;
+    }
+    if (pressedButton(DPad.down, lastDPad.down)) {
+        servo3angle = ang3;
     }
     if (pressedButton(GeoPad.cross, lastGeoPad.cross)) {
         servo1.write(0);

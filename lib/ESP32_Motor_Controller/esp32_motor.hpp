@@ -39,7 +39,7 @@ public:
     esp32_motor(int pinA, int pinB,
                 mcpwm_unit_t unit = MCPWM_UNIT_0,
                 mcpwm_timer_t timer = MCPWM_TIMER_0,
-                uint32_t freq = 20000);
+                uint32_t freq = 1000);
 
     void init();
     void Run(int duty);   // -100 ~ +100 (%)

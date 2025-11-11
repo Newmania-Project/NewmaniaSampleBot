@@ -45,6 +45,9 @@ typedef struct {
 shoulderButton Shoulder;
 shoulderButton lastShoulder;
 
+#define const_k 0.005f
+#define const_e 0.03f
+#define expo(joy) (1-const_e)*joy + const_e*joy*joy*joy
 #define joyThres 0
 void getRemoteState(PS2X &remote) {
     remote.read_gamepad();
@@ -89,16 +92,18 @@ int m4speed = 0;
 #define verticalVelocity rightJoy.Y
 #define horizontalVelocity rightJoy.X
 #define angularVelocity leftJoy.X
-#define vRate 2.0
-#define hRate 2.0
-#define angularRate 2.0
-#define vLimit 70
-#define hLimit 70
-#define aLimit 60
+#define vRate 0.5           // Độ vọt di chuyển dọc
+#define hRate 0.5           // Độ vọt di chuyển ngang
+#define angularRate 0.3     // Độ vọt xoay
+#define vLimit 50       // Giới hạn tốc độ di chuyển dọc
+#define hLimit 50       // Giới hạn tốc độ di chuyển ngang
+#define aLimit 50       // Giới hạn tốc độ xoay
+int maxSpeed = 0;
 void calculateMotorSpeeds() {
-    int V = verticalVelocity*vRate;   // Forward/Backward
-    int H = horizontalVelocity*hRate; // Left/Right
+    int V = verticalVelocity*vRate;         // Forward/Backward
+    int H = horizontalVelocity*hRate;       // Left/Right
     int A = angularVelocity*angularRate;    // Rotation
+    
     // Apply rate limits
     if (V > vLimit) V = vLimit;
     if (H > hLimit) H = hLimit;
@@ -107,13 +112,12 @@ void calculateMotorSpeeds() {
     if (H < -hLimit) H = -hLimit;
     if (A < -aLimit) A = -aLimit;
 
-    m1speed = V - H + A; // Back Left
-    m2speed = V + H + A; // Front Left
-    m3speed = V - H - A; // Front Right
-    m4speed = V + H - A; // Back Right
+    m1speed = V - H - A; // Bánh phải trước
+    m2speed = V + H - A; // Bánh phải sau
+    m3speed = V - H + A; // Bánh trái sau
+    m4speed = V + H + A; // Bánh trái trước
 
-    // Normalize speeds to be within -100 to 100
-    int maxSpeed = max(max(abs(m1speed), abs(m2speed)), max(abs(m3speed), abs(m4speed)));
+    maxSpeed = max(max(abs(m1speed), abs(m2speed)), max(abs(m3speed), abs(m4speed)));
     if (maxSpeed > 100) {
         m1speed = (m1speed * 100) / maxSpeed;
         m2speed = (m2speed * 100) / maxSpeed;
