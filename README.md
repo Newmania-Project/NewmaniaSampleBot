@@ -15,7 +15,4 @@
 ## Bước 3: Nạp code
 -   Làm theo video hướng dẫn
 
-<video controls width="640">
-  <source src="https://newmaniafiles.netlify.app/tutorial.mp4" type="video/mp4">
-  Trình duyệt không hỗ trợ video.
-</video>
+[Video hướng dẫn](https://newmaniafiles.netlify.app/tutorial.mp4)
