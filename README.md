@@ -14,4 +14,7 @@
 
 ## Bước 3: Nạp code
 -   Làm theo video hướng dẫn
-<video controls src="https://newmaniafiles.netlify.app/tutorial.mp4" type="video/mp4"></video>
+<p align="center">
+  <video controls src="https://newmaniafiles.netlify.app/tutorial.mp4" type="video/mp4"></video>
+</p>
+
