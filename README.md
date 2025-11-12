@@ -15,4 +15,4 @@
 ## Bước 3: Nạp code
 -   Làm theo video hướng dẫn
 
-[Video hướng dẫn](https://newmaniafiles.netlify.app/tutorial.mp4)
+![Video hướng dẫn](https://newmaniafiles.netlify.app/tutorial.mp4)
